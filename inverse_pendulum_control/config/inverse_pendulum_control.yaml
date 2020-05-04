@@ -1,0 +1,19 @@
+inverse_pendulum:
+        # Publish all joint states --------------------------------
+        joint_state_controller:
+                type: joint_state_controller/JointStateController
+                publish_rate: 50
+        # Position Controllers ------------------------------------
+        joint1_position_controller:
+                type: position_controllers/JointPositionController
+                joint: foundation_to_connector
+        joint1_position_controller:
+                type: position_controllers/JointPositionController
+                joint: connector_to_arm
+
+gazebo_ros_control:
+        pid_gains:
+                foundation_to_connector: {p: 100.0, i: 0.01, d: 10.0}
+                connector_to_arm: {p: 100.0, i: 0.01, d: 10.0}
+
+
