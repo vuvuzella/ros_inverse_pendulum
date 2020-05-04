@@ -17,6 +17,6 @@
         type="state_publisher" />
 
     <node name="rviz" pkg="rviz" type="rviz"
-        args="-d $(find pan_tilt_model)/urdf.rviz" required="true" />
+        args="-d $(find inverse_pendulum)/urdf/urdf.rviz" required="true" />
 
 </launch>

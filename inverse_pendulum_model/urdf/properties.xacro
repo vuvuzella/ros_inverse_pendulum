@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+    name="inverse_pendulum">
+
+    <!-- object properties -->
+
+    <!-- foot -->
+    <xacro:property name="foot_width" value="5.0" />
+    <xacro:property name="foot_depth" value="5.0" />
+    <xacro:property name="foot_height" value="0.5" />
+    <xacro:property name="foot_mass" value="1000.0" />
+
+    <!-- foundation -->
+    <!-- x-red, y-green, z-blue -->
+    <xacro:property name="foundation_width" value="0.5" />
+    <xacro:property name="foundation_depth" value="4.0" />
+    <xacro:property name="foundation_height" value="1.0" />
+    <xacro:property name="foundation_mass" value="5.0" />
+
+    <!-- connector -->
+    <xacro:property name="connector_width" value="0.2" />
+    <xacro:property name="connector_depth" value="0.2" />
+    <xacro:property name="connector_height" value="0.2" />
+    <xacro:property name="connector_mass" value="0.5" />
+
+    <!-- arm -->
+    <xacro:property name="arm_width" value="0.2" />
+    <xacro:property name="arm_depth" value="0.2" />
+    <xacro:property name="arm_height" value="2.5" />
+    <xacro:property name="arm_mass" value="1.0" />
+</robot>
