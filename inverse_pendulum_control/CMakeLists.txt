@@ -60,11 +60,12 @@ add_message_files(
 )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+  FILES
+  # Service1.srv
+  # Service2.srv
+  demo_srv.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -77,7 +78,7 @@ add_message_files(
 generate_messages(
   DEPENDENCIES
   std_msgs
-  actionlib_msgs
+  # actionlib_msgs
   # gazebo_msgs
 )
 
@@ -132,15 +133,24 @@ include_directories(
 add_executable(demo_topic_publisher src/demo_topic_publisher.cpp)
 add_executable(demo_topic_subscriber src/demo_topic_subscriber.cpp)
 
+add_executable(demo_service_server src/demo_service_server.cpp)
+add_executable(demo_service_client src/demo_service_client.cpp)
+
 # Generate the message header file before building the target
 add_dependencies(demo_topic_publisher
     inverse_pendulum_control_generate_messages_cpp)
 add_dependencies(demo_topic_subscriber
     inverse_pendulum_control_generate_messages_cpp)
+add_dependencies(demo_service_server
+    inverse_pendulum_control_generate_messages_cpp)
+add_dependencies(demo_service_client
+    inverse_pendulum_control_generate_messages_cpp)
 
 # This will link executables to the appropriate libraries
 target_link_libraries(demo_topic_publisher ${catkin_LIBRARIES})
 target_link_libraries(demo_topic_subscriber ${catkin_LIBRARIES})
+target_link_libraries(demo_service_server ${catkin_LIBRARIES})
+target_link_libraries(demo_service_client ${catkin_LIBRARIES})
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
