@@ -12,6 +12,11 @@ find_package(catkin REQUIRED COMPONENTS
   gazebo_plugins
   gazebo_ros
   gazebo_ros_control
+  roscpp
+  std_msgs
+  actionlib
+  actionlib_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -48,11 +53,11 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+  FILES
+  demo_msg.msg
+  # Message2.msg
+)
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -69,10 +74,12 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   gazebo_msgs
-# )
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+  actionlib_msgs
+  # gazebo_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -106,7 +113,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES inverse_pendulum_control
-#  CATKIN_DEPENDS gazebo_msgs gazebo_plugins gazebo_ros gazebo_ros_control inverse_pendulum
+   CATKIN_DEPENDS gazebo_msgs gazebo_plugins gazebo_ros gazebo_ros_control std_msgs message_runtime
 #  DEPENDS system_lib
 )
 
@@ -117,9 +124,23 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
 )
+
+# Create executables of demo_topic_publisher and demo_topic_sibscriber nodes
+add_executable(demo_topic_publisher src/demo_topic_publisher.cpp)
+add_executable(demo_topic_subscriber src/demo_topic_subscriber.cpp)
+
+# Generate the message header file before building the target
+add_dependencies(demo_topic_publisher
+    inverse_pendulum_control_generate_messages_cpp)
+add_dependencies(demo_topic_subscriber
+    inverse_pendulum_control_generate_messages_cpp)
+
+# This will link executables to the appropriate libraries
+target_link_libraries(demo_topic_publisher ${catkin_LIBRARIES})
+target_link_libraries(demo_topic_subscriber ${catkin_LIBRARIES})
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
@@ -205,3 +226,5 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
