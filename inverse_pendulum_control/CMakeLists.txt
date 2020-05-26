@@ -12,7 +12,6 @@ find_package(catkin REQUIRED COMPONENTS
   gazebo_plugins
   gazebo_ros
   gazebo_ros_control
-  inverse_pendulum
 )
 
 ## System dependencies are found with CMake's conventions
