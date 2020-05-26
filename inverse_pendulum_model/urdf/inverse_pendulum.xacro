@@ -3,11 +3,11 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro"
        xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
        xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
-    name="inverse_pendulum">
+    name="inverse_pendulum_model">
 
     <!-- includes -->
-    <xacro:include filename="$(find inverse_pendulum)/urdf/macros.xacro" />
-    <xacro:include filename="$(find inverse_pendulum)/urdf/properties.xacro" />
+    <xacro:include filename="$(find inverse_pendulum_model)/urdf/macros.xacro" />
+    <xacro:include filename="$(find inverse_pendulum_model)/urdf/properties.xacro" />
 
     <!-- colors -->
     <gazebo reference="foot">
@@ -29,7 +29,7 @@
     <!-- ros_control plugin -->
     <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-            <robotNamespace>/inverse_pendulum</robotNamespace>
+            <robotNamespace>/inverse_pendulum_control</robotNamespace>
             <legacyModeNS>true</legacyModeNS>
         </plugin>
     </gazebo>
@@ -182,9 +182,7 @@
 
     <!-- transmissions -->
     <xacro:transmission_block joint_name="foundation_to_connector" />
-    <!--
     <xacro:transmission_block joint_name="connector_to_arm" />
-    -->
 
 </robot>
 

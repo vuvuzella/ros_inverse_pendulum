@@ -17,25 +17,32 @@
     </include>
 
     <!-- Load the URDF into the ROS Parameter Server -->
-    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find inverse_pendulum)/urdf/inverse_pendulum.xacro'" />
+    <param name="robot_description" command="$(find xacro)/xacro --inorder
+    '$(find inverse_pendulum_model)/urdf/inverse_pendulum.xacro'" />
 
     <!-- Load the joint controller configurations from yaml file to parameter
          server -->
     <rosparam file="$(find inverse_pendulum_control)/config/inverse_pendulum_control.yaml" command="load" />
 
-    <!-- Load the controllers -->
-    <node name="controller_spawn" pkg="controller_manager" type="spawner" respawn="false"
-        output="screen" ns="/inverse_pendulum" args="joint_state_controller joint1_position_controller" />
-
     <!-- convert joint states to TF transforms for rviz etc -->
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
         respawn="false" output="screen">
-        <remap from="/joint_states" to="/inverse_pendulum/joint_states" />
+        <remap from="/joint_states" to="/inverse_pendulum_control/joint_states" />
+    </node>
+
+    <!-- Rviz -->
+    <param name="use_gui" value="true" />
+    <node name="rviz" pkg="rviz" type="rviz"
+        args="-d $(find inverse_pendulum_model)/urdf/urdf.rviz" required="true">
     </node>
 
     <!-- Run a python script to send a service call to gazebo_ros to spawn a
          urdf robot -->
     <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-        args="-urdf -model inverse_pendulum -param robot_description" />
+        args="-urdf -model inverse_pendulum_model -param robot_description" />
+
+    <!-- Load the controllers -->
+    <node name="controller_spawn" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen" ns="/inverse_pendulum_control" args="joint_state_controller joint1_position_controller" />
 
 </launch>

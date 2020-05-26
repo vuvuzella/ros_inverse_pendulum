@@ -3,7 +3,6 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro"
     name="inverse_pendulum">
 
-    <!-- https://en.wikipedia.org/wiki/List_of_moments_of_inertia -->
     <xacro:macro name="transmission_block" params="joint_name">
         <transmission name="tran1">
             <type>transmission_interface/SimpleTransmission</type>
@@ -21,7 +20,7 @@
         </transmission>
     </xacro:macro>
 
-
+    <!-- https://en.wikipedia.org/wiki/List_of_moments_of_inertia -->
     <xacro:macro name="inertial_matrix" params="mass x_length y_length z_length">
       <inertial>
         <mass value="${mass}" />
