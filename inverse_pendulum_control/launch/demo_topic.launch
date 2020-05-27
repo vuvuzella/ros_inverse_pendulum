@@ -1,0 +1,4 @@
+<launch>
+    <node name="publisher_node" pkg="inverse_pendulum_control" type="demo_topic_publisher" output="screen" />
+    <node name="subscriber_node" pkg="inverse_pendulum_control" type="demo_topic_subscriber" output="screen" />
+</launch>

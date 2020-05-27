@@ -55,16 +55,24 @@
   <build_depend>gazebo_ros_control</build_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>std_msgs</build_depend>
+  <build_depend>actionlib</build_depend>
+  <build_depend>actionlib_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+
   <build_export_depend>gazebo_msgs</build_export_depend>
   <build_export_depend>gazebo_plugins</build_export_depend>
   <build_export_depend>gazebo_ros</build_export_depend>
   <build_export_depend>gazebo_ros_control</build_export_depend>
+
   <exec_depend>gazebo_msgs</exec_depend>
   <exec_depend>gazebo_plugins</exec_depend>
   <exec_depend>gazebo_ros</exec_depend>
   <exec_depend>gazebo_ros_control</exec_depend>
   <exec_depend>roscpp</exec_depend>
   <exec_depend>std_msgs</exec_depend>
+  <exec_depend>actionlib</exec_depend>
+  <exec_depend>actionlib_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
 
   <!-- Message generation -->
   <build_depend>message_generation</build_depend>

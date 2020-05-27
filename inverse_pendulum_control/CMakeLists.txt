@@ -17,10 +17,11 @@ find_package(catkin REQUIRED COMPONENTS
   actionlib
   actionlib_msgs
   message_generation
+  sensor_msgs
 )
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS system)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -68,18 +69,20 @@ add_service_files(
 )
 
 ## Generate actions in the 'action' folder
-# add_action_files(
-#   FILES
+add_action_files(
+  FILES
+  Demo_action.action 
 #   Action1.action
 #   Action2.action
-# )
+)
 
 ## Generate added messages and services with any dependencies listed here
 generate_messages(
   DEPENDENCIES
   std_msgs
-  # actionlib_msgs
-  # gazebo_msgs
+  actionlib_msgs
+  gazebo_msgs
+  sensor_msgs
 )
 
 ################################################
@@ -114,7 +117,17 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES inverse_pendulum_control
-   CATKIN_DEPENDS gazebo_msgs gazebo_plugins gazebo_ros gazebo_ros_control std_msgs message_runtime
+   CATKIN_DEPENDS
+        roscpp
+        gazebo_msgs
+        gazebo_plugins
+        gazebo_ros
+        gazebo_ros_control
+        std_msgs
+        actionlib
+        actionlib_msgs
+        message_runtime
+        sensor_msgs
 #  DEPENDS system_lib
 )
 
@@ -127,30 +140,45 @@ catkin_package(
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
+  ${BOOST_INCLUDE_DIRS}
 )
 
 # Create executables of demo_topic_publisher and demo_topic_sibscriber nodes
-add_executable(demo_topic_publisher src/demo_topic_publisher.cpp)
-add_executable(demo_topic_subscriber src/demo_topic_subscriber.cpp)
+# add_executable(demo_topic_publisher src/demo_topic_publisher.cpp)
+# add_executable(demo_topic_subscriber src/demo_topic_subscriber.cpp)
+# 
+# add_executable(demo_service_server src/demo_service_server.cpp)
+# add_executable(demo_service_client src/demo_service_client.cpp)
+# 
+# add_executable(demo_action_server src/demo_action_server.cpp)
+# add_executable(demo_action_client src/demo_action_client.cpp)
 
-add_executable(demo_service_server src/demo_service_server.cpp)
-add_executable(demo_service_client src/demo_service_client.cpp)
+add_executable(position_error_node src/position_error_node.cpp)
 
 # Generate the message header file before building the target
-add_dependencies(demo_topic_publisher
-    inverse_pendulum_control_generate_messages_cpp)
-add_dependencies(demo_topic_subscriber
-    inverse_pendulum_control_generate_messages_cpp)
-add_dependencies(demo_service_server
-    inverse_pendulum_control_generate_messages_cpp)
-add_dependencies(demo_service_client
+# add_dependencies(demo_topic_publisher
+#     inverse_pendulum_control_generate_messages_cpp)
+# add_dependencies(demo_topic_subscriber
+#     inverse_pendulum_control_generate_messages_cpp)
+# add_dependencies(demo_service_server
+#     inverse_pendulum_control_generate_messages_cpp)
+# add_dependencies(demo_service_client
+#     inverse_pendulum_control_generate_messages_cpp)
+# add_dependencies(demo_action_server
+#     inverse_pendulum_control_generate_messages_cpp)
+# add_dependencies(demo_action_client
+#     inverse_pendulum_control_generate_messages_cpp)
+add_dependencies(position_error_node
     inverse_pendulum_control_generate_messages_cpp)
 
 # This will link executables to the appropriate libraries
-target_link_libraries(demo_topic_publisher ${catkin_LIBRARIES})
-target_link_libraries(demo_topic_subscriber ${catkin_LIBRARIES})
-target_link_libraries(demo_service_server ${catkin_LIBRARIES})
-target_link_libraries(demo_service_client ${catkin_LIBRARIES})
+# target_link_libraries(demo_topic_publisher ${catkin_LIBRARIES})
+# target_link_libraries(demo_topic_subscriber ${catkin_LIBRARIES})
+# target_link_libraries(demo_service_server ${catkin_LIBRARIES})
+# target_link_libraries(demo_service_client ${catkin_LIBRARIES})
+# target_link_libraries(demo_action_server ${catkin_LIBRARIES})
+# target_link_libraries(demo_action_client ${catkin_LIBRARIES})
+target_link_libraries(position_error_node ${catkin_LIBRARIES})
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
