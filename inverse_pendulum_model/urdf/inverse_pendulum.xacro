@@ -180,9 +180,49 @@
             z_length="${arm_height}" />
     </link>
 
+    <joint name="arm_to_imu" type="fixed">
+        <parent link="arm" />
+        <child link="imu_link" />
+        <origin rpy="0 0 0" xyz="0 0 0" />
+        <axis xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+
+    <link name="imu_link">
+        <visual>
+            <geometry>
+                <box size="0.2 0.2 0.2" />
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 2.7" />
+            <material name="gray">
+                <color rgba="0.5 0.5 0.5 1" />
+            </material>
+        </visual>
+    </link>
+
     <!-- transmissions -->
     <xacro:transmission_block joint_name="foundation_to_connector" />
     <xacro:transmission_block joint_name="connector_to_arm" />
+
+    <gazebo reference="imu_link">
+        <gravity>true</gravity>
+        <sensor name="imu_sensor" type="imu">
+            <alwaysOn>true</alwaysOn>
+            <update_rate>100</update_rate>
+            <visualize>true</visualize>
+            <topic>__default_topic__</topic>
+            <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+                <topicName>imu</topicName>
+                <bodyName>imu_link</bodyName>
+                <updateRateHZ>10.0</updateRateHZ>
+                <gaussianNoise>0.0</gaussianNoise>
+                <xyzOffset>0 0 0</xyzOffset>
+                <rpyOffset>0 0 0</rpyOffset>
+                <frameName>imu_link</frameName>
+                <initialOrientationAsReference>false</initialOrientationAsReference>
+            </plugin>
+            <pose>0 0 0 0 0 0</pose>
+        </sensor>
+    </gazebo>
 
 </robot>
 
