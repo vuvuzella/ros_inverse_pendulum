@@ -1,0 +1,5 @@
+<library path="lib/libinverse_pendulum_control_lib">
+	<class name="inverse_pendulum_control_ns/InversePendulumControlClass"
+		type="inverse_pendulum_control_ns::InversePendulumControlClass"
+		base_class_type="controller_interface::ControllerBase" />
+</library>

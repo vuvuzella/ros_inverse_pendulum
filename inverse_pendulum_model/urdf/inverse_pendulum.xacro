@@ -183,7 +183,7 @@
     <joint name="arm_to_imu" type="fixed">
         <parent link="arm" />
         <child link="imu_link" />
-        <origin rpy="0 0 0" xyz="0 0 0" />
+        <origin rpy="0 0 0" xyz="0 0 2.7" />
         <axis xyz="0 0 0" rpy="0 0 0" />
     </joint>
 
@@ -192,7 +192,7 @@
             <geometry>
                 <box size="0.2 0.2 0.2" />
             </geometry>
-            <origin rpy="0 0 0" xyz="0 0 2.7" />
+            <origin rpy="0 0 0" xyz="0 0 0" />
             <material name="gray">
                 <color rgba="0.5 0.5 0.5 1" />
             </material>

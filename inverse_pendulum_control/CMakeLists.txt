@@ -18,6 +18,8 @@ find_package(catkin REQUIRED COMPONENTS
   actionlib_msgs
   message_generation
   sensor_msgs
+  pluginlib
+  controller_interface
 )
 
 ## System dependencies are found with CMake's conventions
@@ -115,8 +117,8 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES inverse_pendulum_control
+   INCLUDE_DIRS src
+   # LIBRARIES inverse_pendulum_control
    CATKIN_DEPENDS
         roscpp
         gazebo_msgs
@@ -128,6 +130,8 @@ catkin_package(
         actionlib_msgs
         message_runtime
         sensor_msgs
+        pluginlib
+   DEPENDS Boost
 #  DEPENDS system_lib
 )
 
@@ -153,7 +157,9 @@ include_directories(
 # add_executable(demo_action_server src/demo_action_server.cpp)
 # add_executable(demo_action_client src/demo_action_client.cpp)
 
-add_executable(position_error_node src/position_error_node.cpp)
+add_executable(pid_inverse_pendulum src/pid_inverse_pendulum.cpp)
+add_dependencies(pid_inverse_pendulum pid_inverse_pendulum_messages_cpp)
+target_link_libraries(pid_inverse_pendulum ${catkin_LIBRARIES})
 
 # Generate the message header file before building the target
 # add_dependencies(demo_topic_publisher
@@ -168,8 +174,6 @@ add_executable(position_error_node src/position_error_node.cpp)
 #     inverse_pendulum_control_generate_messages_cpp)
 # add_dependencies(demo_action_client
 #     inverse_pendulum_control_generate_messages_cpp)
-add_dependencies(position_error_node
-    inverse_pendulum_control_generate_messages_cpp)
 
 # This will link executables to the appropriate libraries
 # target_link_libraries(demo_topic_publisher ${catkin_LIBRARIES})
@@ -178,12 +182,12 @@ add_dependencies(position_error_node
 # target_link_libraries(demo_service_client ${catkin_LIBRARIES})
 # target_link_libraries(demo_action_server ${catkin_LIBRARIES})
 # target_link_libraries(demo_action_client ${catkin_LIBRARIES})
-target_link_libraries(position_error_node ${catkin_LIBRARIES})
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
 #   src/${PROJECT_NAME}/inverse_pendulum_control.cpp
 # )
+# add_library(inverse_pendulum_control_lib src/inverse_pendulum_control.cpp)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -209,6 +213,8 @@ target_link_libraries(position_error_node ${catkin_LIBRARIES})
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
+
+# target_link_libraries(inverse_pendulum_control_lib ${catkin_LIBRARIES})
 
 #############
 ## Install ##

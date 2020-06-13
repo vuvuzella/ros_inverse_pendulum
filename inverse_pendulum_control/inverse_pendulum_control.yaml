@@ -1,0 +1,13 @@
+# File loaded during Gazebo startup
+inverse_pendulum_control:
+    joint1_position_controller:
+        type: inverse_pendulum_control_ns/InversePendulumControlClass
+        joint_name: foundation_to_connector
+    joint2_position_controller:
+        type: inverse_pendulum_control_ns/InversePendulumControlClass
+        joint_name: connector_to_arm
+
+gazebo_ros_control:
+        pid_gains:
+                foundation_to_connector: {p: 100.0, i: 0.01, d: 10.0}
+                connector_to_arm: {p: 1, i: 1, d: 1}

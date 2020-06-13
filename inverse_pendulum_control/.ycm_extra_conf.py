@@ -60,7 +60,9 @@ flags = [
 '-x',
 'c++',
 '-I',
-'/opt/ros/kinetic/include'
+'/opt/ros/kinetic/include',
+'-I',
+DIR_OF_THIS_SCRIPT + '/include'
 # '-isystem',
 # 'cpp/pybind11',
 # '-isystem',
